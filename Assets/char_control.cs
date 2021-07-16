@@ -47,4 +47,40 @@ public class char_control : MonoBehaviour
         
         }
     }
+    void Shoot()
+    {
+        if(true)
+        {
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            playerVariables.aim = true;
+            playerVariables.pointer.active = true;
+            playerVariables.playerSpeed = 7;player_stat.playerSpeed=7;
+            PlayAudioAim();
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            playerVariables.aim = false;
+            playerVariables.pointer.active = false;
+            playerVariables.playerSpeed = 15;player_stat.playerSpeed=15;           
+           
+        }
+
+        if (playerVariables.aim == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Instantiate(playerVariables.arrowPrefab, playerVariables.arrowOrigin.transform.position, playerVariables.arrowOrigin.transform.rotation);
+                 PlayAudioShoot();
+            }
+
+            if (playerVariables.lvl2 == true && Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Instantiate(playerVariables.arrowPrefab, playerVariables.arrowLeftOrigin.transform.position, playerVariables.arrowLeftOrigin.transform.rotation);
+                Instantiate(playerVariables.arrowPrefab, playerVariables.arrowRightOrigin.transform.position, playerVariables.arrowRightOrigin.transform.rotation);
+                 PlayAudioShoot();
+            }
+        }
+    }
+    }
 }

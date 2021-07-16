@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class button_click : MonoBehaviour
 {
+public Canvas parent;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +15,9 @@ public class button_click : MonoBehaviour
     void Update()
     {
         
+    }
+    public void shrink()
+    {
+      parent.transform.localScale=new Vector3(0,0,0);
     }
 }

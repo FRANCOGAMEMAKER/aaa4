@@ -79,7 +79,7 @@ public class char_control : MonoBehaviour
         if(other.tag=="interact")
         {
             is_interact=true;
-             transform.LookAt(other.gameObject.transform.position);
+             body. transform.LookAt(other.gameObject.transform.position);
              theinterac_canvas.transform.localScale=new Vector3(1,1,1);
 
         }

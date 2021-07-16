@@ -19,5 +19,6 @@ public Canvas parent;
     public void shrink()
     {
       parent.transform.localScale=new Vector3(0,0,0);
+      GameObject.Find("Player").GetComponent<char_control>().is_interact=true;
     }
 }

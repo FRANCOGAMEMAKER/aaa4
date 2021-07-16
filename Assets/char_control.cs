@@ -7,9 +7,17 @@ public class char_control : MonoBehaviour
     // Start is called before the first frame update
     public GameObject body;
     public float speed=1;
+
+    public GameObject boom;
+    public GameObject boom_spawn;
+    public bool is_interact=false;
+    GameObject theinterac_canvas;
+
+    Quaternion og_rotation;
     void Start()
     {
-      
+        og_rotation=body.transform.rotation;
+      theinterac_canvas=GameObject.Find("thecanvas");
     }
 
     // Update is called once per frame
@@ -17,10 +25,12 @@ public class char_control : MonoBehaviour
     {
         AimRotation();
         PlayerMovement();
+        Shoot();
+        
     }
      void AimRotation()
     {
-        if (true)
+        if (is_interact==false)
         {
             Vector3 positionOnScreen = Camera.main.WorldToViewportPoint(body.transform.position);
             Vector3 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
@@ -33,7 +43,7 @@ public class char_control : MonoBehaviour
     }
     void PlayerMovement()
     {
-        if(true)
+        if(is_interact==false)
         {
             
            Vector3 direction = new Vector3((-1*Input.GetAxisRaw("Vertical")), 0, Input.GetAxisRaw("Horizontal")).normalized;
@@ -49,38 +59,42 @@ public class char_control : MonoBehaviour
     }
     void Shoot()
     {
-        if(true)
+        if(is_interact==false)
         {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            playerVariables.aim = true;
-            playerVariables.pointer.active = true;
-            playerVariables.playerSpeed = 7;player_stat.playerSpeed=7;
-            PlayAudioAim();
-        }
-        if (Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            playerVariables.aim = false;
-            playerVariables.pointer.active = false;
-            playerVariables.playerSpeed = 15;player_stat.playerSpeed=15;           
-           
-        }
-
-        if (playerVariables.aim == true)
-        {
+        
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                Instantiate(playerVariables.arrowPrefab, playerVariables.arrowOrigin.transform.position, playerVariables.arrowOrigin.transform.rotation);
-                 PlayAudioShoot();
+                Instantiate(boom, boom_spawn.transform.position, boom_spawn.transform.rotation);
+                
             }
 
-            if (playerVariables.lvl2 == true && Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                Instantiate(playerVariables.arrowPrefab, playerVariables.arrowLeftOrigin.transform.position, playerVariables.arrowLeftOrigin.transform.rotation);
-                Instantiate(playerVariables.arrowPrefab, playerVariables.arrowRightOrigin.transform.position, playerVariables.arrowRightOrigin.transform.rotation);
-                 PlayAudioShoot();
-            }
+           
+        
+    }
+
+    
+    }
+     void OnTriggerEnter(Collider other)
+    {
+        if(other.tag=="interact")
+        {
+            is_interact=true;
+             transform.LookAt(other.gameObject.transform.position);
+             theinterac_canvas.transform.localScale=new Vector3(1,1,1);
+
         }
     }
+void checkUIstate()
+{
+if(is_interact)
+{
+    if(theinterac_canvas.transform.localScale.magnitude<=0.1f)
+    {
+is_interact=false;
+transform.rotation=og_rotation;
     }
+}
+}
+    
+
 }

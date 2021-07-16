@@ -11,13 +11,13 @@ public class char_control : MonoBehaviour
     public GameObject boom;
     public GameObject boom_spawn;
     public bool is_interact=false;
-    GameObject theinterac_canvas;
+    Canvas theinterac_canvas;
 
     Quaternion og_rotation;
     void Start()
     {
         og_rotation=body.transform.rotation;
-      theinterac_canvas=GameObject.Find("thecanvas");
+      theinterac_canvas=GameObject.Find("thecanvas").GetComponent<Canvas>();
     }
 
     // Update is called once per frame
